@@ -22,8 +22,6 @@ func LoadEnv() {
 		log.Println("No .env file found, using environment variables")
 	}
 	JWTSecret = os.Getenv("JWT_SECRET")
-	log.Printf("DB_USER: %s", os.Getenv("DB_USER"))
-	log.Printf("DB_PASSWORD: %s", os.Getenv("DB_PASSWORD"))
 }
 
 func ConnectDatabase() *gorm.DB {
