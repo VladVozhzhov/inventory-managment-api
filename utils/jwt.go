@@ -1,16 +1,16 @@
 package utils
 
 import (
-	"time"
-
 	"fmt"
+	"os"
+	"time"
 
 	"github.com/golang-jwt/jwt/v5"
 )
 
-var jwtKey = []byte("your_secret_key")
-
 func GenerateJWT(userID uint, role string) (string, error) {
+	os.Getenv("JWT_SECRET")
+	var jwtKey = []byte("JWT_SECRET")
 	claims := &jwt.RegisteredClaims{
 		ExpiresAt: jwt.NewNumericDate(time.Now().Add(1 * time.Hour)),
 		Issuer:    "inventory-app",
