@@ -21,4 +21,5 @@ func SetupRoutes(router *gin.Engine, db *gorm.DB) {
 	authorized.Use(middlewares.JWTVerify())
 	authorized.POST("/products", controllers.AddProduct)
 	authorized.PUT("/products", controllers.UpdateProduct)
+	authorized.DELETE("/products", controllers.DeleteProduct)
 }

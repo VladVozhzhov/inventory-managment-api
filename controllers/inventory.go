@@ -90,6 +90,27 @@ func UpdateProduct(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"product": product})
 }
 
+func DeleteProduct(c *gin.Context) {
+	id := c.Query("id")
+	if id == "" {
+		c.JSON(400, gin.H{"error": "Product ID is required"})
+		return
+	}
+
+	var product models.Product
+	if err := DB.First(&product, "id = ?", id).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Product not found"})
+		return
+	}
+
+	if err := DB.Delete(&product).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Unable to delete product"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Product deleted successfully"})
+}
+
 // Logs a stock transaction (e.g., adding/removing stock)
 func logStockTransaction(c *gin.Context, productID string, change int, reason string) {
 	user, _ := c.Get("user")
