@@ -1,0 +1,7 @@
+# Environment config
+.env*
+
+# IDE/editor artifacts
+.vscode/
+*.log
+.DS_Store
